@@ -1,10 +1,14 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "backend",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node build/src/app.js",
+    "start-ts": "ts-node src/app.ts",
+    "build": "tsc -p .",
+    "dev": "nodemon -L src/app.ts",
+    "pm2": "pm2 start build/src/app.js --name server"
   },
   "keywords": [],
   "author": "",
@@ -15,10 +19,17 @@
     "ts-node": "^10.9.1"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
     "@typescript-eslint/eslint-plugin": "^6.2.0",
     "@typescript-eslint/parser": "^6.2.0",
     "eslint": "^8.45.0",
     "nodemon": "^3.0.1",
+    "pm2": "^5.3.0",
     "typescript": "^5.1.6"
+  },
+  "engines": {
+    "node": "18.16.0",
+    "npm": "9.5.1"
   }
 }
