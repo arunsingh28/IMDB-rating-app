@@ -58,7 +58,7 @@ const Favourite: React.FC<FavProps> = ({ setOpenFavMenu, changeEvent }) => {
 
 
     return (
-        <div className='h-screen w-72 shadow-2xl shadow-gray-600 bg-white overflow-scroll overflow-x-hidden relative'>
+        <div className='h-screen w-80 shadow-2xl shadow-gray-600 bg-white overflow-scroll overflow-x-hidden relative'>
             <div className='fixed top-0 left-0 z-10 bg-white w-full flex items-center border-b-2 justify-between px-2'>
                 <button className='bg-blue-500 rounded-md px-5 py-2 font-poppins my-2 text-gray-600 font-semibold hover:bg-blue-600' onClick={() => setOpenFavMenu(false)}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
