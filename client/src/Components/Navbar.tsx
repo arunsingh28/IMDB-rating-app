@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useAppDispatch } from '../Redux/hooks'
 import { changeSeach } from '../Redux/slice/search.slice'
+import Favourite from './Favourite'
 
 
 const Navbar = () => {
@@ -9,12 +10,17 @@ const Navbar = () => {
 
     const [searchTxt, setSearchTxt] = useState<string>('')
 
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(changeSeach({
             text: e.target.value
         }))
         setSearchTxt(e.target.value)
     }
+    const FavDivRef = useRef<HTMLDivElement>(null)
+    const [openFavMenu, setOpenFavMenu] = useState<boolean>(false)
+
+    const handleFavMenu = () => { }
 
     return (
         <div>
@@ -36,8 +42,11 @@ const Navbar = () => {
                 </div>
 
                 <button className='bg-blue-500 p-2 rounded-md w-full mb-3 text-gray-50 border-blue-400 hover:bg-blue-600
-                 xl:w-auto lg:w-auto xl:mb-auto lg:mb-auto'>Favourites</button>
+                 xl:w-auto lg:w-auto xl:mb-auto lg:mb-auto' onClick={handleFavMenu}>Favourites</button>
             </header>
+            <div className='absolute top-0 right-0' ref={FavDivRef}>
+                <Favourite />
+            </div>
         </div>
     )
 }

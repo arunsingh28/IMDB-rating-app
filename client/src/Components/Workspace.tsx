@@ -27,7 +27,7 @@ const Workspace = () => {
 
     return (
         <div>
-            <MovieCard data={movieData} />
+            <MovieCard />
         </div>
     )
 }

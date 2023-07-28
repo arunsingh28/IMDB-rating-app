@@ -1,11 +1,9 @@
 import React from 'react'
 import { IMBD } from './Workspace'
 
-interface MovieProp {
-    data: IMBD
-}
 
-const MovieCard: React.FC<MovieProp> = ({ data }) => {
+
+const MovieCard = () => {
     return (
         <div>MovieCard</div>
     )
