@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { fetchMovies } from '../http/axios'
-import { useAppSelector } from '../Redux/hooks'
+import { useAppSelector, useAppDispatch } from '../Redux/hooks'
+import { changeLoadingState } from '../Redux/slice/loading.slice'
 import MovieCard from './MovieCard'
+import { Skelton } from '../Components/Skelton'
 
 export interface IMDB {
     Title: string
@@ -12,6 +14,8 @@ export interface IMDB {
 }
 
 const Workspace = () => {
+
+    const dispatch = useAppDispatch()
 
     const { text } = useAppSelector(state => state.search)
 
@@ -27,10 +31,13 @@ const Workspace = () => {
         const timer = setTimeout(() => {
             fetchMovies(searchText)
                 .then((data) => {
+                    // change loading state
+                    dispatch(changeLoadingState({
+                        isLoad: false
+                    }))
                     setMovieData(data.data);
                 })
                 .catch((err) => {
-                    console.log(err);
                     setMovieData([]); // Set movieData to an empty array in case of an error
                 });
         }, 300);
@@ -46,9 +53,9 @@ const Workspace = () => {
     }, [text]);
 
     return (
-        <div className='font-poppins'>
+        <div className='font-poppins mt-5'>
             {movieData === null ? ( // Show loading message when movieData is null
-                <div>Loading...</div>
+                <Skelton />
             ) : movieData && movieData.length > 0 ? ( // Check if movieData is an array with data
                 <MovieCard movieData={movieData} />
             ) : (

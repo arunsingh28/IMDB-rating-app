@@ -1,12 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { useAppDispatch } from '../Redux/hooks'
+import { useAppDispatch, useAppSelector } from '../Redux/hooks'
 import { changeSeach } from '../Redux/slice/search.slice'
+import { changeLoadingState } from '../Redux/slice/loading.slice'
 import Favourite from './Favourite'
+import Loading from './Loading'
 
 
 const Navbar = () => {
 
     const dispatch = useAppDispatch()
+    const { isLoad } = useAppSelector(state => state.loading)
 
     const [searchTxt, setSearchTxt] = useState<string>('')
 
@@ -14,6 +17,9 @@ const Navbar = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(changeSeach({
             text: e.target.value
+        }))
+        dispatch(changeLoadingState({
+            isLoad: true
         }))
         setSearchTxt(e.target.value)
     }
@@ -50,11 +56,14 @@ const Navbar = () => {
                     </h1>
                 </div>
 
-                <div className="mb-4 w-full md:mb-0 md:w-1/4">
-                    <input className="border-2 p-2 rounded-lg w-full font-poppins text-gray-700 outline-blue-500"
+                <div className="mb-4 w-full md:mb-0 md:w-1/4 relative">
+                    <input className="border-2 p-2 rounded-lg w-full font-poppins pr-10 text-gray-700 outline-blue-500"
                         value={searchTxt}
                         onChange={handleChange}
                         placeholder="Search movies" type="text" />
+                    <div className='absolute top-3 right-1'>
+                        {isLoad && <Loading height={5} width={5} />}
+                    </div>
                 </div>
 
                 <button className='bg-blue-500 flex items-center gap-2 font-poppins p-2 rounded-md w-full mb-3 text-gray-50 border-blue-400 hover:bg-blue-600
