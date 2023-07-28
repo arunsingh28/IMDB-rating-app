@@ -1,8 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import { errorHandler } from './utils/errorHandler'
-import { createFile } from './utils/functions'
-import { searchMovies, addFavMovies, removeFavMovies } from './Controller/index'
+import { searchMovies, addFavMovies, removeFavMovies, favoriteMovie } from './Controller/index'
 
 (async function () {
     const PORT = process.env.PORT || 4000
@@ -16,15 +15,17 @@ import { searchMovies, addFavMovies, removeFavMovies } from './Controller/index'
     }
     app.use(cors(coreOption))
 
-    // create file if not exist
-    createFile()
+
+    // body parser
+    app.use(express.json())
 
     // routes
     app.get('/api/movies/search', searchMovies)
     app.post('/api/movies/favorites', addFavMovies)
-    app.get('/api/movies/remove', removeFavMovies)
+    app.delete('/api/movies/remove', removeFavMovies)
+    app.get('/api/fav/list', favoriteMovie)
 
     app.listen(PORT, () => {
-        console.log(`🚀 Query endpoint ready at http://localhost:${PORT}`)
+        console.log(`🚀 server listen at http://localhost:${PORT}`)
     })
 })()

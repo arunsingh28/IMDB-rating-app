@@ -1,17 +1,24 @@
 import express from 'express'
 import axios from 'axios'
-import { readFile } from '../utils/functions'
+import { readFile, insertRecord, deleteRecord } from '../utils/functions'
 
 export const addFavMovies = async (req: express.Request, res: express.Response) => {
-    // get imdbID 
-    const { imdbID } = req.query
-
+    // save it to file db
+    const isInsert = await insertRecord(req.body)
+    // send clinet success message
+    return res.status(200).json(isInsert)
 }
 
 export const removeFavMovies = async (req: express.Request, res: express.Response) => {
     // get imdbID 
     const { imdbID } = req.query
+    const isRemove = await deleteRecord(imdbID as string)
+    return res.status(200).json(isRemove)
+}
 
+export const favoriteMovie = async (req: express.Request, res: express.Response) => {
+    const favMoviesList = readFile()
+    return res.status(200).json(favMoviesList)
 }
 
 export const searchMovies = async (req: express.Request, res: express.Response) => {
@@ -23,19 +30,12 @@ export const searchMovies = async (req: express.Request, res: express.Response) 
             return res.status(200).json(fetchData.data.Error)
         } else {
             // check if imbdID present in DB then add label fav to true
-            const fileContent = await readFile()
-            // read file 
-            fetchData.data.Search.map((item: any) => {
-                for (const fileimdbId of fileContent) {
-                    if (fileimdbId.imdbID === item.imdbID) {
-                        console.log('match')
-                        // return data with adding fav label to moves
-                        return res.status(200).json(fetchData.data.Search)
-                    } else {
-                        console.log('not match ')
-                    }
-                }
-            })
+            const fileContent = readFile()
+            const searchResults = fetchData.data.Search.map((item: any) => {
+                const isFav = fileContent.some((fileItem: any) => fileItem.imdbID === item.imdbID);
+                return { ...item, fav: isFav };
+            });
+            return res.status(200).json(searchResults);
         }
     } catch (error) {
         console.log(error)
