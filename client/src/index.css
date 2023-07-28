@@ -9,7 +9,15 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+/* Slide in from right */
+.absolute.transition-transform.duration-300.translate-x-0 {
+  transform: translateX(0);
+}
 
+/* Slide out to right */
+.absolute.transition-transform.duration-300.translate-x-full {
+  transform: translateX(100%);
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

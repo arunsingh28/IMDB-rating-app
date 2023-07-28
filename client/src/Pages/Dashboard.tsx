@@ -2,9 +2,8 @@ import React from 'react'
 import Navbar from '../Components/Navbar'
 import Workspace from '../Components/Workspace'
 
-const Dashboard = () => {
 
-    const [searchTxt, setSearchTxt] = React.useState<string>('')
+const Dashboard = () => {
 
     return (
         <div>
