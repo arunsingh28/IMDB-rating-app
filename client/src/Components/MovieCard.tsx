@@ -43,7 +43,7 @@ const MovieCard = ({ movieData }: MovieProps) => {
             {
                 Array.isArray(favorites) && favorites.length > 0 ? (
                     favorites.map((item) => (
-                        <div key={item.imdbID} className='w-64 h-96 font-poppins relative group hover:shadow-2xl px-2 py-2 rounded-md hover:h-auto hover:-translate-y-5'>
+                        <div key={item.imdbID} className='w-64 h-96 bg-white font-poppins relative group hover:shadow-2xl px-2 py-2 rounded-md hover:h-auto hover:-translate-y-5'>
                             <img src={item.Poster} alt={item.Title + ' poster not availble'} className='h-80 w-64 rounded-md' />
                             <h1>{item.Title}</h1>
                             <div className='flex items-center justify-between'>
