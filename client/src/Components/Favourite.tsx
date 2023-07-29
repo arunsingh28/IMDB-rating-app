@@ -86,7 +86,7 @@ const Favourite: React.FC<FavProps> = ({ setOpenFavMenu, changeEvent }) => {
                                     </div>
                                 </div>
                             )
-                        }) : <p className='text-center font-poppins bg-gray-100 px-10 py-2'>No Movies found !!!</p>
+                        }).reverse() : <p className='text-center font-poppins bg-gray-100 px-10 py-2'>No Movies found !!!</p>
                 }
             </div>
         </div >
