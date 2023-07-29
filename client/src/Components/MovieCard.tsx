@@ -9,12 +9,6 @@ interface MovieProps {
 
 const MovieCard = ({ movieData }: MovieProps) => {
 
-    useEffect(() => {
-        if (movieData && movieData.length > 0) {
-            Array.isArray(movieData) && movieData.sort((a, b) => parseInt(b.Year) - parseInt(a.Year));
-        }
-    }, [movieData])
-
     const addToFavList = async (data: IMDB) => {
         const isAddedd = await addToFav(data)
         if (isAddedd.data) {

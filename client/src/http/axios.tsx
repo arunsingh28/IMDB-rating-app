@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: process.env.ENV === 'production' ? '' : 'http://localhost:4000/api',
+    baseURL: process.env.ENV === 'production' ? 'http://3.108.59.157:4000/api' : 'http://localhost:4000/api',
     headers: {
         "Content-Type": "application/json"
     }
