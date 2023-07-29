@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { IMDB } from './Workspace'
-import { addToFav } from '../http/axios'
+import { OMDB } from './Workspace'
+import { addToFav, removeFromFav } from '../http/axios'
 import { toast } from 'react-toastify'
 
 interface MovieProps {
-    movieData: IMDB[] | undefined
+    movieData: OMDB[] | undefined,
+    direction: string
 }
 
-const MovieCard = ({ movieData }: MovieProps) => {
+const MovieCard = ({ movieData, direction }: MovieProps) => {
 
-    const [favorites, setFavorites] = useState<IMDB[]>(movieData || []);
+    const [favorites, setFavorites] = useState<OMDB[]>(movieData || []);
 
     useEffect(() => {
         if (movieData) {
@@ -17,13 +18,13 @@ const MovieCard = ({ movieData }: MovieProps) => {
         }
     }, [])
 
-    const addToFavList = async (data: IMDB) => {
+    const addToFavList = async (data: OMDB) => {
         const isAddedd = await addToFav(data)
         if (isAddedd.data) {
             // update fav icon to red
             setFavorites((prevFavorites) =>
                 prevFavorites.map((item) =>
-                    item.imdbID === data.imdbID ? { ...item, fav: true } : item
+                    item.OMDBID === data.OMDBID ? { ...item, fav: true } : item
                 )
             );
             toast.success(`${data.Title} is added successfully`, {
@@ -31,19 +32,27 @@ const MovieCard = ({ movieData }: MovieProps) => {
                 theme: 'dark'
             })
         } else {
-            toast.error(`${data.Title} is already addedd to favourites`, {
-                position: 'bottom-left',
-                theme: 'dark'
-            })
+            const isRemove = await removeFromFav(data.OMDBID)
+            if (isRemove.data) {
+                setFavorites((prevFavorites) =>
+                    prevFavorites.map((item) =>
+                        item.OMDBID === data.OMDBID ? { ...item, fav: false } : item
+                    )
+                );
+                toast.success(`${data.Title} is remove from favourites`, {
+                    position: 'bottom-left',
+                    theme: 'dark'
+                })
+            }
         }
     }
 
     return (
-        <div className='flex flex-wrap gap-4 mx-10 my-6 items-center justify-center'>
+        <div className={`flex flex-wrap gap-4 mx-10 my-6 items-center ${direction}`}>
             {
                 Array.isArray(favorites) && favorites.length > 0 ? (
                     favorites.map((item) => (
-                        <div key={item.imdbID} className='w-64 h-96 bg-white font-poppins relative group hover:shadow-2xl px-2 py-2 rounded-md hover:h-auto hover:-translate-y-5'>
+                        <div key={item.OMDBID} className='w-64 h-96 bg-white font-poppins relative group hover:shadow-2xl px-2 py-2 rounded-md hover:h-auto hover:-translate-y-5'>
                             <img src={item.Poster} alt={item.Title + ' poster not availble'} className='h-80 w-64 rounded-md' />
                             <h1>{item.Title}</h1>
                             <div className='flex items-center justify-between'>

@@ -10,9 +10,9 @@ export const addFavMovies = async (req: express.Request, res: express.Response) 
 }
 
 export const removeFavMovies = async (req: express.Request, res: express.Response) => {
-    // get imdbID 
-    const { imdbID } = req.query
-    const isRemove = await deleteRecord(imdbID as string)
+    // get OMDBID 
+    const { OMDBID } = req.query
+    const isRemove = await deleteRecord(OMDBID as string)
     return res.status(200).json(isRemove)
 }
 
@@ -22,7 +22,7 @@ export const favoriteMovie = async (req: express.Request, res: express.Response)
 }
 
 export const searchMovies = async (req: express.Request, res: express.Response) => {
-    // call IMDB api
+    // call OMDB api
     const { title } = req.query
     try {
         const fetchData = await axios.get(`http://www.omdbapi.com/?apikey=6b4f8623&s=${title}`)
@@ -32,7 +32,7 @@ export const searchMovies = async (req: express.Request, res: express.Response) 
             // check if imbdID present in DB then add label fav to true
             const fileContent = readFile()
             const searchResults = fetchData.data.Search.map((item: any) => {
-                const isFav = fileContent.some((fileItem: any) => fileItem.imdbID === item.imdbID);
+                const isFav = fileContent.some((fileItem: any) => fileItem.OMDBID === item.OMDBID);
                 return { ...item, fav: isFav };
             });
             return res.status(200).json(searchResults);

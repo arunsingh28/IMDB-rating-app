@@ -1,30 +1,30 @@
 import fs from 'fs'
 import path from 'path'
 
-interface IMDB {
+interface OMDB {
     Year: string
     Type: string
     Poster: string
     Title: string
-    imdbID: string
+    OMDBID: string
 }
 
 // read file
-export const readFile = (): IMDB[] => {
+export const readFile = (): OMDB[] => {
     try {
         const fileContent = fs.readFileSync(path.join(__dirname + '../../db/data.json'), 'utf-8')
-        return JSON.parse(fileContent) as IMDB[]
+        return JSON.parse(fileContent) as OMDB[]
     } catch (error) {
         return []
     }
 }
 
 // insert funtion
-export const insertRecord = async (data: IMDB): Promise<boolean> => {
+export const insertRecord = async (data: OMDB): Promise<boolean> => {
     try {
         const file = readFile()
-        // check duplicate imdbID
-        if (file.some((item) => item.imdbID === data.imdbID)) {
+        // check duplicate OMDBID
+        if (file.some((item) => item.OMDBID === data.OMDBID)) {
             return false
         }
         file.push(data)
@@ -37,9 +37,9 @@ export const insertRecord = async (data: IMDB): Promise<boolean> => {
 }
 
 // delete function 
-export const deleteRecord = async (imdbID: string): Promise<boolean> => {
+export const deleteRecord = async (OMDBID: string): Promise<boolean> => {
     let file = readFile();
-    const index = file.findIndex((item) => item.imdbID === imdbID);
+    const index = file.findIndex((item) => item.OMDBID === OMDBID);
     if (index !== -1) {
         file.splice(index, 1)
         // write file in json
