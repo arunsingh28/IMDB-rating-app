@@ -3,7 +3,7 @@ import axios from "axios";
 // local link : http://localhost:4000/api
 
 const api = axios.create({
-    baseURL: 'http://3.108.59.157:4000/api',
+    baseURL: 'https://velozity.blueorbit.app/api',
     headers: {
         "Content-Type": "application/json"
     }
