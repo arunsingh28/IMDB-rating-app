@@ -9,37 +9,26 @@ import Loading from './Loading'
 const Navbar = () => {
 
     const dispatch = useAppDispatch()
+    // fetch isLoad from redux
     const { isLoad } = useAppSelector(state => state.loading)
 
     const [searchTxt, setSearchTxt] = useState<string>('')
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // dispatch seatch text 
         dispatch(changeSeach({
             text: e.target.value
         }))
+        // dispatch loading state
         dispatch(changeLoadingState({
             isLoad: true
         }))
         setSearchTxt(e.target.value)
     }
-    const FavDivRef = useRef<HTMLDivElement>(null)
     const [openFavMenu, setOpenFavMenu] = useState<boolean>(false)
 
-    const closeFavDiv = (event: MouseEvent) => {
-        // Check if the click target is outside the FavDiv
-        if (FavDivRef.current && !FavDivRef.current.contains(event.target as Node)) {
-            setOpenFavMenu(false);
-        }
-    };
-
-    useEffect(() => {
-        document.addEventListener('mousedown', closeFavDiv)
-        return () => {
-            document.removeEventListener('mousedown', closeFavDiv);
-        };
-    }, [])
-
+    // handle open state for fav component
     const handleFavMenu = () => {
         setOpenFavMenu(true)
     }
@@ -62,7 +51,7 @@ const Navbar = () => {
                         onChange={handleChange}
                         placeholder="Search movies" type="text" />
                     <div className='absolute top-3 right-1'>
-                        {isLoad && <Loading height={5} width={5} />}
+                        {isLoad && <Loading height={4} width={4} />}
                     </div>
                 </div>
 

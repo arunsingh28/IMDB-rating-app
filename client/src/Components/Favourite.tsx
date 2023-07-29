@@ -66,12 +66,12 @@ const Favourite: React.FC<FavProps> = ({ setOpenFavMenu, changeEvent }) => {
                     </svg>
                 </button>
 
-                <span className=' text-[15px] text-gray-700 font-poppins font-semibold flex items-center justify-center'>{isLoading ? <Loading height={4} width={4} /> : favMoviesData?.length} Movies</span>
+                <span className='text-[15px] text-gray-700 font-poppins font-semibold flex items-center justify-center'>{isLoading ? <Loading height={5} width={5} /> : favMoviesData?.length} Movies</span>
             </div >
             <div className='mt-16'>
                 {
                     isLoading ?
-                        <Loading height={10} width={10} /> :
+                        <Loading height={6} width={6} /> :
                         favMoviesData && favMoviesData.length > 0 ? favMoviesData.map((item) => {
                             return (
                                 <div key={item.imdbID} className='m-2 h-auto bg-gray-100 mb-5 group relative'>
