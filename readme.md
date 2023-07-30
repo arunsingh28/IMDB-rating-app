@@ -9,13 +9,12 @@
 2. ```/api/movies/favorites```
 > **Favorites api** for adding movies to fav list
 > _example_ send all below data in body with same key
-```{
+```
     Year: string
     Type: string
     Poster: string
     Title: string
     OMDBID: string
-}
 ```
 3. ```api/movies/remove?OMDBID=```**_movie omdbID_**
 > **Remove From Fav** for removing movies from fav list
