@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import { errorHandler } from './utils/errorHandler'
 import { searchMovies, addFavMovies, removeFavMovies, favoriteMovie } from './Controller/index'
+import { createDBDir } from './utils/functions'
 
 (async function () {
     const PORT = process.env.PORT || 4000
@@ -18,6 +19,9 @@ import { searchMovies, addFavMovies, removeFavMovies, favoriteMovie } from './Co
 
     // body parser
     app.use(express.json())
+
+    // create db dir if not present
+    createDBDir()
 
     // routes
     app.get('/api/movies/search', searchMovies)

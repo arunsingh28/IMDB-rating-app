@@ -50,3 +50,22 @@ export const deleteRecord = async (OMDBID: string): Promise<boolean> => {
         return false
     }
 }
+
+export const createDBDir = () => {
+    const dbDir = path.join(__dirname + '../../db')
+    fs.access(dbDir, (err) => {
+        if (err) {
+            fs.mkdir(dbDir, (err) => {
+                if (err) {
+                    console.log('Error creating db directory:', err)
+                } else {
+                    // db dir created successfully
+                    console.log('db directory created successfully.');
+                }
+            })
+        } else {
+            // If 'db' directory exists, do nothing.
+            console.log('db directory already exists.');
+        }
+    })
+}

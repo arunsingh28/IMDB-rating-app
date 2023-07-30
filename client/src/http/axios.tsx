@@ -4,7 +4,8 @@ import axios from "axios";
 
 // Create an instance of axios with a base URL and default headers.
 const api = axios.create({
-    baseURL: 'https://velozity.blueorbit.app/api',
+    // baseURL: 'https://velozity.blueorbit.app/api',
+    baseURL: 'http://localhost:4000/api',
     headers: {
         "Content-Type": "application/json"
     }
