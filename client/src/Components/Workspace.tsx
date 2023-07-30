@@ -9,7 +9,7 @@ import Suggestion from './Suggestion'
 export interface OMDB {
     Title: string
     Year: string
-    OMDBID: string
+    imdbID: string
     Type: string
     Poster: string
     fav: boolean

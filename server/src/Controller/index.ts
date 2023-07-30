@@ -11,8 +11,8 @@ export const addFavMovies = async (req: express.Request, res: express.Response) 
 
 export const removeFavMovies = async (req: express.Request, res: express.Response) => {
     // get OMDBID 
-    const { OMDBID } = req.query
-    const isRemove = await deleteRecord(OMDBID as string)
+    const { imdbID } = req.query
+    const isRemove = await deleteRecord(imdbID as string)
     return res.status(200).json(isRemove)
 }
 

@@ -21,8 +21,8 @@ export const addToFav = async (data: any) => {
 }
 
 // Function to remove a movie from favorites by OMDB ID
-export const removeFromFav = async (OMDB: string) => {
-    return await api.delete(`movies/remove?OMDBID=${OMDB}`)
+export const removeFromFav = async (imdbID: string) => {
+    return await api.delete(`movies/remove?imdbID=${imdbID}`)
 }
 
 // Function to fetch the list of all favorite movies

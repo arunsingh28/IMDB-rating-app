@@ -6,7 +6,7 @@ interface OMDB {
     Type: string
     Poster: string
     Title: string
-    OMDBID: string
+    imdbID: string
 }
 
 // read file
@@ -24,7 +24,7 @@ export const insertRecord = async (data: OMDB): Promise<boolean> => {
     try {
         const file = readFile()
         // check duplicate OMDBID
-        if (file.some((item) => item.OMDBID === data.OMDBID)) {
+        if (file.some((item) => item.imdbID === data.imdbID)) {
             return false
         }
         file.push(data)
@@ -37,9 +37,9 @@ export const insertRecord = async (data: OMDB): Promise<boolean> => {
 }
 
 // delete function 
-export const deleteRecord = async (OMDBID: string): Promise<boolean> => {
+export const deleteRecord = async (imdbID: string): Promise<boolean> => {
     let file = readFile();
-    const index = file.findIndex((item) => item.OMDBID === OMDBID);
+    const index = file.findIndex((item) => item.imdbID === imdbID);
     if (index !== -1) {
         file.splice(index, 1)
         // write file in json

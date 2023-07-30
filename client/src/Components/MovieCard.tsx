@@ -24,7 +24,7 @@ const MovieCard = ({ movieData, direction }: MovieProps) => {
             // update fav icon to red
             setFavorites((prevFavorites) =>
                 prevFavorites.map((item) =>
-                    item.OMDBID === data.OMDBID ? { ...item, fav: true } : item
+                    item.imdbID === data.imdbID ? { ...item, fav: true } : item
                 )
             );
             toast.success(`${data.Title} is added successfully`, {
@@ -32,11 +32,11 @@ const MovieCard = ({ movieData, direction }: MovieProps) => {
                 theme: 'dark'
             })
         } else {
-            const isRemove = await removeFromFav(data.OMDBID)
+            const isRemove = await removeFromFav(data.imdbID)
             if (isRemove.data) {
                 setFavorites((prevFavorites) =>
                     prevFavorites.map((item) =>
-                        item.OMDBID === data.OMDBID ? { ...item, fav: false } : item
+                        item.imdbID === data.imdbID ? { ...item, fav: false } : item
                     )
                 );
                 toast.success(`${data.Title} is remove from favourites`, {
@@ -52,7 +52,7 @@ const MovieCard = ({ movieData, direction }: MovieProps) => {
             {
                 Array.isArray(favorites) && favorites.length > 0 ? (
                     favorites.map((item) => (
-                        <div key={item.OMDBID} className='w-64 h-96 bg-white font-poppins relative group hover:shadow-2xl px-2 py-2 rounded-md hover:h-auto hover:-translate-y-5'>
+                        <div key={item.imdbID} className='w-64 h-96 bg-white font-poppins relative group hover:shadow-2xl px-2 py-2 rounded-md hover:h-auto hover:-translate-y-5'>
                             <img src={item.Poster} alt={item.Title + ' poster not availble'} className='h-80 w-64 rounded-md' />
                             <h1>{item.Title}</h1>
                             <div className='flex items-center justify-between'>
